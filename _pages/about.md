@@ -2,24 +2,20 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: or <i>Dito</i> for short
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>Surabaya, Indonesia🇮🇩</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I do research on Natural Language Processing (NLP) in [GIK Lab](https://sites.google.com/site/garudailmukomputer/about) with [Derry Wijaya, Ph.D](https://derrywijaya.github.io/web/) and [Dr. Eng. Ayu Purwarianti, S.T, M.T.](https://www.itb.ac.id/staf/profil/ayu-purwarianti). My research interests are low-resource languages and Multilingual NLP. Currently, I'm working Indonesian Aspect-Based Sentiment Analysis (ABSA) and exploring methods to train machine translation models that learn from beyond parallel sentences.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I received my B. Sc. in Informatics/CS (Hons) from [Bandung Institute of Technology](https://stei.itb.ac.id/) and was advised by [Dr. Eng. Ayu Purwarianti, S.T, M.T.](https://www.itb.ac.id/staf/profil/ayu-purwarianti). My [undergraduate thesis](https://drive.google.com/file/d/1pH1yDeesF4Aw-kfJ91-2Z_Xyb_7N9mp7/view?usp=sharing) is about using LLM-generated synthetic data to improve machine translation between Indonesian and Javanese, a low resource language in Indonesia whose I'm a native speaker of.
