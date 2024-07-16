@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-i, too, have implemented Andrej Karpathy's [micrograd in c](https://github.com/rayendito/cmicrograd) from scratch🤠
+i did the thing! [micrograd in c from scratch](https://github.com/rayendito/cmicrograd) lol
