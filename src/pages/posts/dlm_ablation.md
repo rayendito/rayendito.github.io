@@ -1,15 +1,15 @@
 ---
 layout: ../../layouts/post.astro
-title: "Changing Probability Distributions for DLM Training and Seeing What Happens"
+title: "Trying Different Probability Distributions for DLM Training and Seeing What Happens"
 pubDate: 2025-12-19
-description: "Changing Probability Distributions for DLM Training and Seeing What Happens"
+description: "Trying Different Probability Distributions for DLM Training and Seeing What Happens"
 author: "rayendito"
 isPinned: true
 excerpt: Ever wondered what'll happen if you change the probability distribution of a DLM training? me too. regardless of what "me too" was referring to, here's what i found anyways
 image:
   src:
   alt:
-tags: ["diffusion"]
+tags: ["language_models", "diffusion"]
 ---
 
 Language models estimate the probability distribution over sequences of tokens. Meaning that given a piece of text $\texttt{"I like pancakes"}$, a language model can give it a number, say $0.2$, therefore $p(\texttt{"I like pancakes"}) = 0.2$, which means that the sentence $\texttt{"I like pancakes"}$ is assigned a probability of $0.2$ according to the model’s estimate of the underlying distribution of the training data.
@@ -97,7 +97,7 @@ our experiments.
 
 ![alt text](/dlm_ablation/res_val.png "Loss heatmap of models tested on different validation schemes")
 
-We see a more substantial decrease in validation loss (relative to default) when we test these models to demask $0.15 -0.5$ tokens in a given sentence. Surprisingly, $w=0.25$ and $w=0.5$ outperforms the $w=0.15$ model at the $0.15$ validation scheme, suggesting models trained at $w=0.25$ and $w=0.5$ is good at generalizing to demask smaller amount of tokens than it was specifically trained on. However, in our experiments, this phenomenon does not hold beyond $w=0.5$. training to demask more tokens as in $w=0.75$ and $w=0.95$ yields worse validation loss performance, suggesting that there is a diminishing return of the number of tokens to be demasked during training.
+We see a more substantial decrease in validation loss (relative to default) when we test these models to demask $0.15 -0.5$ tokens in a given sentence. Surprisingly, $w=0.25$ and $w=0.5$ outperforms the $w=0.15$ model at the $0.15$ validation scheme, suggesting models trained at $w=0.25$ and $w=0.5$ is good at generalizing to demask smaller amount of tokens, even better than models that was specifically trained to demask smaller amounts. However, in our experiments, this phenomenon does not hold beyond $w=0.5$. training to demask more tokens as in $w=0.75$ and $w=0.95$ yields worse validation loss performance, suggesting that there is a diminishing return of the number of tokens to be demasked during training.
 
 ## variating $\kappa$ experiments
 ![alt text](/dlm_ablation/res_kappa.png "Validation loss of $w=0.5$ model with several different $\kappa$ to control variance of masking distribution")
@@ -109,10 +109,23 @@ We have shown that $w=0.25$ and $w=0.5$ are potential sweet spots of masking pro
 We found that the our naive curriculum strategy worsens performance despite the intuition of learning to demask smaller amout of tokens in earlier steps would make learning to demask more tokens in later steps easier. Training loss that gradually increases instead of decreasing is expected, since the training task gets harder along with the training steps. However, we make no claims about the performance of curriculum learning in general since this phenomenon warrants further experimentation.
 
 # conclusions
-We conclude with the suggestion that training DLMs to demask about $0.25-0.5$ work better than the default masking distribution. We also further showed that variance in distribution does not really matter.
+We conclude with the suggestion that training DLMs to demask about $0.25-0.5$ work better than the default masking distribution. We further showed that variance in distribution doesn't really matter. We also see that the current curriculum training doesn't really work, but we can't really say that it doesn't work *at all* yet, so we still have all the reason to try other *fancier* way to do curriculum learning.
 
+We release the code on [https://github.com/rayendito/dlm_optim](https://github.com/rayendito/dlm_optim)
+
+# acknowledgements
+Many thanks to my colleagues and advisor: Erland Fuadi, Zayd Zuhri, and Dr. Alham Fikri Aji.
 
 # references
 
 1. Nie et al (2025), *Large Language Diffusion Models*
 
+## bibtex citation
+```bibtex
+@misc{diandaru2025dlmabl,
+  author       = {Diandaru, Ryandito},
+  title        = {Trying Different Probability Distributions for DLM Training and Seeing What Happens},
+  year         = {2025},
+  howpublished = {\url{https://rayendito.github.io/posts/dlm_ablation}},
+}
+```
