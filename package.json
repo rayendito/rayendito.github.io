@@ -25,7 +25,9 @@
 		"react": "19.2.3",
 		"react-dom": "19.2.3",
 		"reading-time": "1.5.0",
+		"rehype-katex": "^7.0.1",
 		"rehype-pretty-code": "0.14.1",
+		"remark-math": "^6.0.0",
 		"tailwindcss": "4.1.18",
 		"typescript": "5.9.3"
 	},
