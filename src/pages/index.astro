@@ -3,6 +3,7 @@ import { AppConfig } from '@/utils/AppConfig';
 import Base from '@/layouts/Base.astro';
 import Hero from '@/components/Hero.astro';
 import LatestPosts from '@/components/LatestPosts.astro';
+import AsciiCat from '@/components/AsciiCat.astro';
 import { sortPostsByDate } from '@/utils/data.util';
 import { MarkdownInstance } from 'astro';
 
@@ -17,6 +18,11 @@ const latestPosts = allPosts.slice(0, 3);
 ---
 
 <Base head={{ title, description }}>
-	<Hero />
-	<LatestPosts posts={latestPosts} />
+	<main class="relative isolate overflow-hidden">
+		<AsciiCat />
+		<div class="relative z-10">
+			<Hero />
+			<LatestPosts posts={latestPosts} />
+		</div>
+	</main>
 </Base>

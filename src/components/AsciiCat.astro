@@ -1,0 +1,34 @@
+---
+import kitty from '../../kitty.txt?raw';
+---
+
+<pre class="ascii-cat" aria-hidden="true">{kitty.trimEnd()}</pre>
+
+<style>
+	.ascii-cat {
+		position: absolute;
+		top: 1rem;
+		right: max(-3rem, calc((100vw - 68rem) / 2));
+		z-index: 0;
+		margin: 0;
+		color: rgb(41 37 36 / 50%);
+		font-size: clamp(6px, 0.72vw, 10px);
+		line-height: 0.9;
+		letter-spacing: 0;
+		white-space: pre;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	:global(.dark) .ascii-cat {
+		color: rgb(250 250 249 / 40%);
+	}
+
+	@media (max-width: 640px) {
+		.ascii-cat {
+			top: 4rem;
+			right: -6rem;
+			font-size: 7px;
+		}
+	}
+</style>
