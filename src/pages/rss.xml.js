@@ -1,9 +1,10 @@
 import rss, {pagesGlobToRssItems} from '@astrojs/rss';
+import { AppConfig } from '@/utils/AppConfig';
 
 export async function GET(context) {
   return rss({
-    title: 'nicdun.dev - blog',
-    description: 'Crafting the Digital Future with Web Development Wonders',
+    title: `${AppConfig.title} - blog`,
+    description: AppConfig.description,
     site: context.site,
     items: await pagesGlobToRssItems(
       import.meta.glob('./posts/*.{md,mdx}'),
