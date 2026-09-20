@@ -9,28 +9,50 @@ export interface Props {
 		title: string;
 		description: string;
 	};
+	htmlClass?: string;
+	bodyClass?: string;
+	colorScheme?: 'dark' | 'light';
+	includePostFonts?: boolean;
 }
 
 const {
-	head: { title, description }
+	head: { title, description },
+	htmlClass = 'dark',
+	bodyClass = 'flex min-h-screen flex-col bg-stone-900 font-mono text-white',
+	colorScheme = 'dark',
+	includePostFonts = false
 } = Astro.props as Props;
+
+const htmlClassName = htmlClass || undefined;
 ---
 
-<html lang="en" class="dark">
+<html lang="en" class={htmlClassName}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="color-scheme" content="dark" />
+		<meta name="color-scheme" content={colorScheme} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="author" content={AppConfig.author} />
 
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="alternate" type="application/rss+xml" href="/rss.xml" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+		{
+			includePostFonts && (
+				<>
+					<link rel="preconnect" href="https://fonts.googleapis.com" />
+					<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+					<link
+						rel="stylesheet"
+						href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+					/>
+				</>
+			)
+		}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" />
 		<PostHog />
 	</head>
-	<body class="flex min-h-screen flex-col bg-stone-900 font-mono text-white">
+	<body class={bodyClass}>
 		<Navbar />
 		<div class="flex-1">
 			<slot />

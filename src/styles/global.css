@@ -1,61 +1,213 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+	--post-bg: #f8f1df;
+	--post-ink: #27241f;
+	--post-muted: #6c6558;
+	--post-rule: #dfd0af;
+	--post-accent: #315f72;
+	--post-accent-dark: #264c5c;
+	--post-code-bg: #eee2c6;
+	--post-code-ink: #7d3418;
+	--post-pre-bg: #202523;
+	--post-pre-ink: #f7ead0;
+	--font-post-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+}
+
+.post-page {
+	background-color: var(--post-bg);
+	color: var(--post-ink);
+}
+
+.post-page a:hover {
+	color: var(--post-accent);
+}
+
+.post-page .post-title,
+.post-page .post-content {
+	font-family: var(--font-post-serif);
+}
+
+.post-page .post-tags > div {
+	justify-content: center;
+}
+
+.post-page .tag-pill {
+	background-color: var(--post-accent);
+	color: #fffaf0;
+}
+
+.post-page a:hover .tag-pill,
+.post-page .tag-pill:hover {
+	background-color: var(--post-accent-dark);
+	color: #fffaf0;
+}
+
+.post-page .post-content {
+	--tw-prose-body: var(--post-ink);
+	--tw-prose-headings: var(--post-ink);
+	--tw-prose-lead: var(--post-muted);
+	--tw-prose-links: var(--post-accent);
+	--tw-prose-bold: var(--post-ink);
+	--tw-prose-counters: var(--post-muted);
+	--tw-prose-bullets: var(--post-muted);
+	--tw-prose-hr: var(--post-rule);
+	--tw-prose-quotes: #473d2d;
+	--tw-prose-quote-borders: #b7a16f;
+	--tw-prose-captions: var(--post-muted);
+	--tw-prose-code: var(--post-code-ink);
+	--tw-prose-pre-code: var(--post-pre-ink);
+	--tw-prose-pre-bg: var(--post-pre-bg);
+	--tw-prose-th-borders: #c9b98f;
+	--tw-prose-td-borders: var(--post-rule);
+	color: var(--post-ink);
+	font-size: 1.22rem;
+	font-feature-settings:
+		'liga' 1,
+		'kern' 1;
+	line-height: 1.78;
+}
+
+.post-page .post-content .katex {
+	font-size: 1em;
+}
+
+.post-page .post-content :where(h1, h2, h3, h4, h5, h6) {
+	color: var(--post-ink);
+	font-family: var(--font-post-serif);
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.15;
+}
+
+.post-page .post-content :where(h1, h2) {
+	border-bottom: 1px solid var(--post-rule);
+	padding-bottom: 0.35em;
+}
+
+.post-page .post-content :where(a) {
+	color: var(--post-accent);
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.16em;
+}
+
+.post-page .post-content :where(a:hover) {
+	color: var(--post-accent-dark);
+}
+
+.post-page .post-content :where(blockquote) {
+	background-color: #fff7e6;
+	border-left-color: #b7a16f;
+	border-radius: 0 0.375rem 0.375rem 0;
+	font-style: italic;
+	padding: 0.2rem 0 0.2rem 1.1rem;
+}
+
+.post-page .post-content :where(code, pre, kbd, samp) {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+}
+
+.post-page .post-content :where(:not(pre) > code) {
+	background-color: var(--post-code-bg);
+	border: 1px solid #dfc690;
+	border-radius: 0.25rem;
+	color: var(--post-code-ink);
+	font-size: 0.8em;
+	padding: 0.1rem 0.28rem;
+}
+
+.post-page .post-content :where(pre) {
+	background-color: var(--post-pre-bg);
+	border: 1px solid #303936;
+	border-radius: 0.5rem;
+	color: var(--post-pre-ink);
+}
+
+.post-page .post-content :where(pre code) {
+	background-color: transparent;
+	border: 0;
+	color: inherit;
+	padding: 0;
+}
+
+.post-page .content pre > code .highlighted {
+	background-color: rgba(255, 250, 240, 0.07);
+	border-left-color: #88aeb6 !important;
+}
+
+.post-page .content pre > code[data-line-numbers] > span[data-line]::before {
+	color: #9fb9ba;
+}
+
+.post-page .post-content :where(img) {
+	background-color: #fffaf0;
+}
+
+.post-page .post-content :where(table) {
+	font-size: 0.95rem;
+}
+
+.post-page .post-content :where(th) {
+	color: var(--post-ink);
+}
 
 /* Tailwind doesn't fully support some of the complex CSS selectors needed for code highlighting,
 so we need to keep some custom CSS but applied through Tailwind's plugin system
 These styles are for code highlighting that can't be easily implemented with just Tailwind */
 @layer utilities {
-    .content pre {
-        @apply p-0;
-    }
+	.content pre {
+		@apply p-0;
+	}
 
-    .content code {
-        @apply overflow-x-auto;
-    }
+	.content code {
+		@apply overflow-x-auto;
+	}
 
-    .content [data-rehype-pretty-code-figure] code {
-        @apply p-0;
-    }
+	.content [data-rehype-pretty-code-figure] code {
+		@apply p-0;
+	}
 
-    .content pre > code span[data-line] {
-        @apply border-l-8 border-transparent px-2;
-    }
+	.content pre > code span[data-line] {
+		@apply border-l-8 border-transparent px-2;
+	}
 
-    .content pre > code span:first-of-type {
-        @apply rounded-t-lg pt-2;
-    }
+	.content pre > code span:first-of-type {
+		@apply rounded-t-lg pt-2;
+	}
 
-    .content pre > code span:last-of-type {
-        @apply rounded-b-lg pb-2;
-    }
+	.content pre > code span:last-of-type {
+		@apply rounded-b-lg pb-2;
+	}
 
-    .content pre > code .highlighted {
-        @apply border-l-8 !border-gray-300/60 bg-gray-200/5;
-    }
+	.content pre > code .highlighted {
+		@apply border-l-8 !border-gray-300/60 bg-gray-200/5;
+	}
 
-    .content pre > code[data-line-numbers] {
-        counter-reset: line;
-    }
+	.content pre > code[data-line-numbers] {
+		counter-reset: line;
+	}
 
-    .content pre > code[data-line-numbers] > span[data-line]::before {
-        counter-increment: line;
-        content: counter(line);
-        @apply mr-8 inline-block w-4 text-left text-[#7ca2dfad];
-    }
+	.content pre > code[data-line-numbers] > span[data-line]::before {
+		counter-increment: line;
+		content: counter(line);
+		@apply mr-8 inline-block w-4 text-left text-[#7ca2dfad];
+	}
 
-    .content pre > code > span[data-line]::before {
-        content: '';
-        @apply inline-block w-4 text-right;
-    }
+	.content pre > code > span[data-line]::before {
+		content: '';
+		@apply inline-block w-4 text-right;
+	}
 
-    .content pre > code[data-line-numbers-max-digits='2'] > span[data-line]::before {
-        @apply w-8;
-    }
+	.content pre > code[data-line-numbers-max-digits='2'] > span[data-line]::before {
+		@apply w-8;
+	}
 
-    .content code[data-line-numbers-max-digits='3'] > span[data-line]::before {
-        @apply w-12;
-    }
+	.content code[data-line-numbers-max-digits='3'] > span[data-line]::before {
+		@apply w-12;
+	}
 }

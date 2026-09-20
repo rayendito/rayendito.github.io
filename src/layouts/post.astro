@@ -9,8 +9,14 @@ const { description } = AppConfig;
 const { frontmatter } = Astro.props;
 ---
 
-<Base head={{ title: frontmatter.title, description }}>
-	<div class="mx-auto w-full max-w-screen-md">
+<Base
+	head={{ title: frontmatter.title, description }}
+	htmlClass=""
+	colorScheme="light"
+	includePostFonts={true}
+	bodyClass="post-page flex min-h-screen flex-col bg-[#f8f1df] font-mono text-[#27241f] selection:bg-[#c8d9d3]"
+>
+	<main class="mx-auto w-full max-w-screen-md pb-16">
 		<PostHeader
 			title={frontmatter.title}
 			author={frontmatter.author}
@@ -21,5 +27,5 @@ const { frontmatter } = Astro.props;
 			img={{ src: frontmatter.image.src, alt: frontmatter.image.alt }}
 		/>
 		<PostContent><slot /></PostContent>
-	</div>
+	</main>
 </Base>

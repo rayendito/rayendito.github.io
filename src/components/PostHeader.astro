@@ -23,18 +23,32 @@ const formattedDate = formatDate(pubDate);
 ---
 
 <Section>
-	<div class="flex flex-col items-center">
-		<div class="relative px-14 pt-6 pb-4 text-center">
+	<div class="flex flex-col items-center text-center text-[#27241f]">
+		<div class="relative px-4 pt-10 pb-5 sm:px-14">
 			{isPinned && <PinnedBadge size="md" class="absolute top-6 left-10 -translate-y-1/2" />}
-			<p class="text-4xl font-bold">{title}</p>
+			<p
+				class="post-title max-w-3xl text-4xl leading-tight font-semibold tracking-normal sm:text-5xl"
+			>
+				{title}
+			</p>
 		</div>
-		<div class="pb-4">
+		<div class="post-tags pb-4">
 			<Tags tags={tags} withHref={true} />
 		</div>
-		<div class="text-sm">
-			<span>{formattedDate}</span> - <span>{minutesRead}</span>
+		<div class="text-sm text-[#6c6558]">
+			<span>{formattedDate}</span><span class="px-2 text-[#9c8e76]">/</span><span
+				>{minutesRead}</span
+			>
 		</div>
 
-		{img.src ? <img src={img.src} alt={img.alt} /> : null}
+		{
+			img.src ? (
+				<img
+					class="mt-8 w-full rounded-md border border-[#dfd0af] bg-[#fffaf0] object-cover shadow-sm"
+					src={img.src}
+					alt={img.alt}
+				/>
+			) : null
+		}
 	</div>
 </Section>
