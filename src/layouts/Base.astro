@@ -12,15 +12,13 @@ export interface Props {
 	htmlClass?: string;
 	bodyClass?: string;
 	colorScheme?: 'dark' | 'light';
-	includePostFonts?: boolean;
 }
 
 const {
 	head: { title, description },
 	htmlClass = 'dark',
 	bodyClass = 'flex min-h-screen flex-col bg-stone-900 font-mono text-white',
-	colorScheme = 'dark',
-	includePostFonts = false
+	colorScheme = 'dark'
 } = Astro.props as Props;
 
 const htmlClassName = htmlClass || undefined;
@@ -37,18 +35,6 @@ const htmlClassName = htmlClass || undefined;
 
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="alternate" type="application/rss+xml" href="/rss.xml" />
-		{
-			includePostFonts && (
-				<>
-					<link rel="preconnect" href="https://fonts.googleapis.com" />
-					<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-					<link
-						rel="stylesheet"
-						href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
-					/>
-				</>
-			)
-		}
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" />
 		<PostHog />
 	</head>

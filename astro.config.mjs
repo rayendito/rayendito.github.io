@@ -7,6 +7,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { remarkInlineFootnotes } from './src/utils/remarkInlineFootnotes.mjs';
 
 const options = {
 	// Specify the theme to use or a custom theme json, in our case
@@ -40,7 +41,7 @@ export default defineConfig({
 		syntaxHighlight: false,
 		// Disable syntax built-in syntax hightlighting from astro
 		rehypePlugins: [[rehypePrettyCode, options], rehypeKatex],
-		remarkPlugins: [remarkReadingTime, remarkMath]
+		remarkPlugins: [remarkInlineFootnotes, remarkReadingTime, remarkMath]
 	},
 
 	integrations: [react(), sitemap()],

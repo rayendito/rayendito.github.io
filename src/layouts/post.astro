@@ -13,10 +13,9 @@ const { frontmatter } = Astro.props;
 	head={{ title: frontmatter.title, description }}
 	htmlClass=""
 	colorScheme="light"
-	includePostFonts={true}
 	bodyClass="post-page flex min-h-screen flex-col bg-[#f8f1df] font-mono text-[#27241f] selection:bg-[#c8d9d3]"
 >
-	<main class="mx-auto w-full max-w-screen-md pb-16">
+	<main class="post-layout mx-auto w-full max-w-screen-md pb-16">
 		<PostHeader
 			title={frontmatter.title}
 			author={frontmatter.author}

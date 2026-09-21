@@ -10,6 +10,11 @@ import Section from './Section.astro';
 	</div>
 </Section>
 
+<script>
+	import { setupSidenotes } from '../utils/sidenotes';
+	setupSidenotes();
+</script>
+
 <!-- Tailwind doesn't fully support some of the complex CSS selectors needed for code highlighting,
      so we need to keep some custom CSS but applied through Tailwind's plugin system -->
 <style is:global>

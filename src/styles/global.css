@@ -15,7 +15,6 @@
 	--post-code-ink: #7d3418;
 	--post-pre-bg: #202523;
 	--post-pre-ink: #f7ead0;
-	--font-post-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
 }
 
 .post-page {
@@ -29,7 +28,7 @@
 
 .post-page .post-title,
 .post-page .post-content {
-	font-family: var(--font-post-serif);
+	font-family: var(--font-mono);
 }
 
 .post-page .post-tags > div {
@@ -72,13 +71,110 @@
 	line-height: 1.78;
 }
 
+.post-page .post-content {
+	position: relative;
+}
+
+.post-content :where(p, li) {
+	text-align: justify;
+	hyphens: auto;
+}
+
+.post-content [data-footnotes] :where(p, li) {
+	text-align: left;
+}
+
+.post-page .post-content [data-footnote-ref] {
+	font-weight: 600;
+	text-decoration: none;
+	padding-inline: 0.12em;
+}
+
+.post-content [data-footnotes] {
+	margin-top: 3rem;
+	border-top: 1px solid var(--post-rule);
+	padding-top: 1rem;
+	color: var(--post-muted);
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.post-content [data-footnotes] > ol > li {
+	padding-left: 0.25rem;
+	overflow-wrap: anywhere;
+	scroll-margin-top: 2rem;
+}
+
+.post-content [data-footnotes] p {
+	margin-block: 0 0.65em;
+}
+
+.post-content [data-footnotes] p:last-child {
+	margin-bottom: 0;
+}
+
+.post-content [data-footnotes] li::marker {
+	color: var(--post-accent);
+}
+
+.post-content [data-footnotes] li:target {
+	background-color: var(--post-code-bg);
+}
+
+.post-page .post-content [data-footnote-backref] {
+	text-decoration: none;
+}
+
+.post-content [data-footnote-ref]:focus-visible,
+.post-content [data-footnote-backref]:focus-visible {
+	outline: 2px solid var(--post-accent);
+	outline-offset: 3px;
+}
+
+.post-page .site-navbar {
+	max-width: 48rem;
+}
+
+@media screen and (min-width: 800px) {
+	.post-layout:has(.has-sidenotes),
+	.post-page:has(.has-sidenotes) .site-navbar {
+		width: calc(100% - 2rem);
+		max-width: 60rem;
+		padding-right: 15rem;
+	}
+
+	.post-content.has-sidenotes [data-footnotes],
+	.post-content.has-sidenotes [data-footnotes] > ol {
+		display: contents;
+	}
+
+	.post-content.has-sidenotes [data-footnotes] > ol > li {
+		position: absolute;
+		left: calc(100% + 3rem);
+		width: 12rem;
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.5;
+	}
+}
+
+@media print {
+	.post-content.has-sidenotes {
+		min-height: 0 !important;
+	}
+}
+
 .post-page .post-content .katex {
 	font-size: 1em;
 }
 
+.post-page .post-content :not(.katex-display) > .katex {
+	font-size: 1.1em;
+}
+
 .post-page .post-content :where(h1, h2, h3, h4, h5, h6) {
 	color: var(--post-ink);
-	font-family: var(--font-post-serif);
+	font-family: var(--font-mono);
 	font-weight: 600;
 	letter-spacing: 0;
 	line-height: 1.15;
