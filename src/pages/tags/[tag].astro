@@ -6,11 +6,10 @@ import Heading from '@/components/Heading.astro';
 import { AppConfig } from '@/utils/AppConfig';
 import { MarkdownInstance } from 'astro';
 import { sortPostsByDate } from '@/utils/data.util';
+import { getPosts } from '@/utils/posts';
 
 export async function getStaticPaths(): Promise<any> {
-	const allPosts = Object.values(
-		import.meta.glob('../posts/*.md', { eager: true })
-	) as MarkdownInstance<any>[];
+	const allPosts = getPosts();
 
 	const allTags: Set<string> = new Set(
 		allPosts.map((post: MarkdownInstance<Record<string, any>>) => post.frontmatter.tags).flat()

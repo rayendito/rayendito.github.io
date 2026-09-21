@@ -1,0 +1,15 @@
+---
+import { getPosts } from '@/utils/posts';
+
+export function getStaticPaths() {
+	return getPosts().map((post) => ({
+		params: { slug: post.slug },
+		props: { post }
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = post;
+---
+
+<Content />

@@ -6,14 +6,12 @@ import LatestPosts from '@/components/LatestPosts.astro';
 import AsciiCat from '@/components/AsciiCat.astro';
 import Section from '@/components/Section.astro';
 import { sortPostsByDate } from '@/utils/data.util';
-import { MarkdownInstance } from 'astro';
+import { getPosts } from '@/utils/posts';
 
 const { title } = AppConfig;
 const { description } = AppConfig;
 
-const allPosts = Object.values(
-	import.meta.glob('./posts/*.md', { eager: true })
-) as MarkdownInstance<any>[];
+const allPosts = getPosts();
 allPosts.sort(sortPostsByDate);
 const latestPosts = allPosts.slice(0, 3);
 ---
@@ -25,14 +23,14 @@ const latestPosts = allPosts.slice(0, 3);
 			<Hero />
 			<LatestPosts posts={latestPosts} />
 			<Section>
-				<blockquote class="text-sm italic text-stone-300">
+				<blockquote class="text-sm text-stone-300 italic">
 					<p>
 						“The number of hours we have together is actually not so large. Please linger near the
 						door uncomfortably instead of just leaving. Please forget your scarf in my life and come
 						back later for it.”
 					</p>
-					<footer class="mt-3 not-italic text-stone-400">
-						― <cite class="not-italic text-stone-300">Mikko Harvey</cite>
+					<footer class="mt-3 text-stone-400 not-italic">
+						― <cite class="text-stone-300 not-italic">Mikko Harvey</cite>
 					</footer>
 				</blockquote>
 			</Section>

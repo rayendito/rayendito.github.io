@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/post.astro
+layout: ../layouts/post.astro
 title: "Trying Different Probability Distributions for DLM Training and Seeing What Happens"
 pubDate: 2025-12-19
 description: "Trying Different Probability Distributions for DLM Training and Seeing What Happens"
