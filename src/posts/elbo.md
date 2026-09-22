@@ -6,7 +6,7 @@ description: "A writeup about Evidence Lower Bound (ELBO)"
 author: "rayendito"
 isPinned: false
 excerpt: "Teaching myself what is an evidence lower bound"
-draft: true
+draft: false
 image:
   src: ""
   alt: ""
@@ -20,6 +20,8 @@ $$
 $$
 
 This writeup is a walkthrough of what it is, and mostly why does it solve an intractable problem in minimizing the loss of diffusion language models.
+
+_**Disclaimer**_: this is not a very rigorous mathematical article (some details are intentionally left out for the sake of understanding) but hopefully not misleading.
 
 ## What is a probabilistic model? 
 
@@ -44,14 +46,14 @@ This small sentence (From _The Little Prince_, Antoine de Saint-Exupéry) should
 Modern (at least autoregressive ones like ChatGPT) language models assign a probability distribution over a set of vocabulary tokens $\mathcal{V}$, given it's previous tokens.
 
 $$
-P(x_t \in \mathcal{V} \mid x_{<t})
+P(x_t = v \mid x_{<t})
 $$
 
 Essentially, it gives you what token/word is likely to be next. So for example when we forward pass $x_{<t} = ``\text{the cat sat on the}"$ to the network, we have a probability distribution over $\mathcal{V}$. Likely words are assigned higher probabilities:
 $$
-P(\text{``mat"} \in \mathcal{V} \mid x_{<t}) = 0.9
+P(x_t = \text{``mat"} \mid x_{<t}) = 0.9
 $$ 
-is higher compared to maybe $P(\text{``mitochondria"} \in \mathcal{V} \mid x_{<t}) = 0.002$. 
+is higher compared to maybe $P(x_t = \text{``mitochondria"} \mid x_{<t}) = 0.002$. 
 
 At this point, you might be thinking, this is different from what we agreed with? because we agreed that language models assign a probability over whole texts, not predicting what token is next? We are actually still doing the same thing, it's just that probability for whole texts/sentences is now factorized over next token probabilities.
 
@@ -70,7 +72,7 @@ There are 2 things you can do with probabilistic models
 
 2. Generating new $x$ (sampling) from this model. In the case of language models, we are _generating_ new sentences from the model.
 
-In the case of our language models, $P(x)$ tells us exactly that. For sampling, we run $P(x_t \mid x_1, \dots, x_{t-1})$ and pick the most likely\footnote{This is called greedy decoding, i believe there is a whole research direction in language model sampling} token over and over again (this is how Autoregressive models work too).
+In the case of our language models, $P(x)$ tells us exactly that. For sampling, we run $P(x_t \mid x_1, \dots, x_{t-1})$ and pick the most likely\footnote{This is called greedy decoding (although arguably it's no longer _sampling_ bc it's deterministic), i believe there is a whole research direction in language model sampling} token over and over again (this is how Autoregressive models work too).
 
 _Luckily_, doing both is easy for language models. As has been discussed before, we can estimate a sentence $x$ by just forwarding the sentence through the network, or running the forward over and over again to sample/_generate a new sentence_ from the model. I think, or rather i _believe_ not all probabilistic models are easy in both\footnote{i am pretty sure}.
 
@@ -91,7 +93,7 @@ $$
 P(major | \{\text{courses taken},\; \text{desk location},\; \text{supervisor}\})
 $$
 
-We call the $\text{student}$ information a _latent_ variable that will make our college major estimation better. We can apply the same concept to language models. Let's say we have the same sentence as before (shout out Antoine once again):
+Now suppose we don’t observe the student’s attributes directly. These unobserved attributes are latent variables, and we have to consider their possible values. We can apply the same idea to language models. We call the $\text{student}$ information a _latent_ variable that will make our college major estimation better. We can apply the same concept to language models. Let's say we have the same sentence as before (shout out Antoine once again):
 
 > Once when I was six years old I saw a magnificent picture in a book, called True Stories from Nature, about the primeval forest.
 
@@ -133,7 +135,7 @@ $$
 P^\theta(x) = \int p^\theta(x \mid z)\, p(z)\, dz
 $$
 
-becomes very impractical. In the case of **diffusion language models**, the latent variables are often the partially clean sequence, which is a sequence of the same length as the clean inputs, with $|\mathcal{V}|$ possible candidates per position. That's $|\mathcal{V}|^{\text{sequence\_length}}$ possible latent variable candidates! This is definitely a problem. Because when we train diffusion language models, we want to compute
+which are very impractical. In the case of **diffusion language models**, intermediate sequences act as latent variables and have the same length as the clean input. Under uniform token corruption, each position has $|\mathcal{V}|$ possible token values. That's $|\mathcal{V}|^{\text{sequence\_length}}$ possible configurations for just one intermediate sequence! Computing the exact likelihood generally requires summing over entire trajectories of these intermediate states. This is definitely a problem. Because when we train diffusion language models, we want to compute
 
 $$
 -\log(P^\theta(x))
@@ -143,7 +145,7 @@ Therefore, we have to find a workaround for this.
 
 ## Workaround: Variational Posterior
 
-Let us introduce a _variational posterior_ $q(\text{sentence\_attribute} \mid x)$, which is the distribution of latent variables given the text. For the sake of generality, let's say the _latent variable_ $\text{(sentence\_attribute)}$ is just some $z$. Note that $\text{sentence\_attribute}$ is just an illustration. In practice, most latent variables are less obvious (it can be a vector of ``meaningless"\footnote{not readily interpretable at face value} numbers, etc.) Of course $q(z \mid x)$ would assign $z$'s that are likelier explanations of $x$'s higher probabilities, like $\text{sentence\_attribute}_1$ for example.
+Let us choose a tractable _variational posterior_ $q(\text{sentence\_attribute} \mid x)$, which is the distribution of latent variables given the text. For the sake of generality, let's say the _latent variable_ $\text{(sentence\_attribute)}$ is just some $z$. Note that $\text{sentence\_attribute}$ is just an illustration. In practice, most latent variables are less obvious (it can be a vector of ``meaningless"\footnote{not readily interpretable at face value} numbers, etc.) Ideally, $q(z \mid x)$ should assign $z$'s that are likelier explanations of $x$'s higher probabilities, like $\text{sentence\_attribute}_1$ for example.
 
 ## Derivations and Why It Is Now "Computable"
 
